@@ -48,7 +48,7 @@ readonly LANGUAGE_PACKAGES_26_04=(
 # prefixed with BOOTSTRAP_ because nvm.sh uses NVM_VERSION internally: a readonly variable of that
 # name stops nvm from working at all
 readonly BOOTSTRAP_NVM_VERSION="0.40.8"
-readonly NODE_MAJOR_VERSION="24"
+readonly NODE_MAJOR_VERSION="26"
 readonly SWIFTLY_VERSION="1.2.0"
 readonly SWIFT_VERSION="6.4"
 
