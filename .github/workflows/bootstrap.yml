@@ -50,7 +50,9 @@ jobs:
     name: Packages (Ubuntu ${{ matrix.release }}, ${{ matrix.runner == 'ubuntu-24.04-arm' && 'arm64' || 'amd64' }})
     runs-on: ${{ matrix.runner }}
     # an unreachable Ubuntu mirror once stretched this job past 15 minutes, one slow refresh at a
-    # time; the cap stops a stall from running for hours
+    # time; the cap stops a stall from running for hours. It runs on pull requests only: main then
+    # holds exactly the code the pull request proved, so a second run on push only spends minutes
+    if: github.event_name != 'push'
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -66,6 +68,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
+      # GitHub's amd64 runners reach Ubuntu's main mirrors only intermittently, while arm64 uses
+      # ports.ubuntu.com and is unaffected, so amd64 containers use the Azure mirror the runners
+      # themselves use
       - name: Resolve every package
         shell: bash
         run: |
@@ -76,4 +81,4 @@ jobs:
             --workdir /repo \
             --env LINUX_BOOTSTRAP_SIMULATE=1 \
             "ubuntu:${{ matrix.release }}" \
-            bash -c 'printf "Acquire::http::Timeout \"15\";\nAcquire::https::Timeout \"15\";\n" > /etc/apt/apt.conf.d/99ci-timeout && ./bootstrap/bootstrap.sh --with "$1"' _ "$extras"
+            bash -c 'printf "Acquire::http::Timeout \"15\";\nAcquire::https::Timeout \"15\";\n" > /etc/apt/apt.conf.d/99ci-timeout && sed -i "s#http://archive.ubuntu.com#http://azure.archive.ubuntu.com#g; s#http://security.ubuntu.com#http://azure.archive.ubuntu.com#g" /etc/apt/sources.list.d/*.sources /etc/apt/sources.list 2>/dev/null; ./bootstrap/bootstrap.sh --with "$1"' _ "$extras"
