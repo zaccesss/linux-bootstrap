@@ -78,6 +78,7 @@ repositories, each written to be forked and adapted:
 | [ssh-config](https://github.com/zaccesss/ssh-config) | A starting `~/.ssh/config` |
 | [cli-tools-config](https://github.com/zaccesss/cli-tools-config) | ripgrep, fzf and lazygit defaults |
 | [vscode-config](https://github.com/zaccesss/vscode-config) | VS Code settings and keybindings (desktops) |
+| [terminal-config](https://github.com/zaccesss/terminal-config) | The High Contrast light and dark palette for the Ptyxis terminal (desktops) |
 | [system-defaults](https://github.com/zaccesss/system-defaults) | GNOME desktop preferences (desktops) |
 
 ```bash

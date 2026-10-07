@@ -273,10 +273,12 @@ readonly CONFIG_LINKS=(
     "cli-tools-config|ripgrep/ripgreprc|${HOME}/.ripgreprc"
 )
 
-# desktop only: VS Code runs on the host for WSL and container-style machines
+# desktop only: VS Code and the terminal run on the host for WSL and container-style machines. The
+# Ptyxis palette is Ubuntu 25.10 and later's terminal; pick High Contrast in its preferences
 readonly DESKTOP_CONFIG_LINKS=(
     "vscode-config|settings.json|${HOME}/.config/Code/User/settings.json"
     "vscode-config|keybindings/windows-linux.json|${HOME}/.config/Code/User/keybindings.json"
+    "terminal-config|linux/ptyxis/high-contrast.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/high-contrast.palette"
 )
 
 # these hold each person's own identity and hosts, so they are copied once as a starting point

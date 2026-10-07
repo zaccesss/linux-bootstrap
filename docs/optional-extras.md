@@ -26,7 +26,7 @@ Desktop-only extras are skipped with a warning on WSL, servers and containers.
 | `vercel` | The Vercel CLI through npm | Any |
 | `extra-languages` | Racket, SBCL (Common Lisp), R and Ada (GNAT with gprbuild) | Any |
 | `gamedev` | SDL2 and SFML development libraries | Any |
-| `configs` | A shell profile, prompt and tool configs (tmux, Neovim, Git hooks, lazygit, ripgrep, plus VS Code and GNOME settings on a desktop) from public repositories, linked into place. Starting `~/.gitconfig` and `~/.ssh/config` files are copied if missing | Any |
+| `configs` | A shell profile, prompt and tool configs (tmux, Neovim, Git hooks, lazygit, ripgrep, plus VS Code settings, GNOME settings and the High Contrast terminal palette on a desktop) from public repositories, linked into place. Starting `~/.gitconfig` and `~/.ssh/config` files are copied if missing | Any |
 | `chinese-input` | Pinyin and Cangjie input methods for IBus | Desktop |
 | `mac-keys` | Natural scrolling and Toshy for Mac-style shortcuts in a VM on a Mac | Desktop |
 
