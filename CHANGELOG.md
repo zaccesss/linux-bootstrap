@@ -13,5 +13,7 @@ All notable changes to this project are documented here.
 
 ### Changed
 
+- `ACCESSIBILITY.md`, describing how a run reads and what a desktop gets.
+- CI caps each job (10 minutes for tests, 20 for packages) and gives apt a 15-second network timeout, so an unreachable Ubuntu mirror fails fast instead of stretching a run for hours.
 - Node.js 26 through nvm, the release that becomes the long-term support line in October 2026.
 - On a desktop the `configs` extra links the High Contrast palette from terminal-config for Ptyxis, the terminal in Ubuntu 25.10 and later.

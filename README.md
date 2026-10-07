@@ -104,6 +104,7 @@ Not sure which way to run Linux? Start with [Ways to run Linux](docs/ways-to-run
 
 | Path | Purpose |
 | --- | --- |
+| [`ACCESSIBILITY.md`](ACCESSIBILITY.md) | How a run reads and what a desktop gets |
 | `bootstrap/` | The bootstrap itself, see [bootstrap/README.md](bootstrap/README.md) for what each stage does |
 | `docs/` | Platform notes, optional extras and machine setup guides |
 | `tests/` | Offline tests, see [tests/README.md](tests/README.md) |
