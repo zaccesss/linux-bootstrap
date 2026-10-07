@@ -110,6 +110,16 @@ Not sure which way to run Linux? Start with [Ways to run Linux](docs/ways-to-run
 | `tests/` | Offline tests, see [tests/README.md](tests/README.md) |
 | `.github/` | CI, including the job that resolves every package on every supported platform |
 
+## Other platforms
+
+| Platform | Repository |
+| --- | --- |
+| macOS | [mac-bootstrap](https://github.com/zaccesss/mac-bootstrap) |
+| Ubuntu, including WSL2 and VMs | [linux-bootstrap](https://github.com/zaccesss/linux-bootstrap) |
+| Windows 11 | [windows-bootstrap](https://github.com/zaccesss/windows-bootstrap) |
+
+All three use the same public dotfiles and config repositories.
+
 ## Development
 
 Changes follow the repository's issue, branch, pull request, review and squash-merge workflow.
