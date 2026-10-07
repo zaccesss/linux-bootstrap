@@ -10,3 +10,8 @@ All notable changes to this project are documented here.
 - Opt-in extras, including `configs` for a shell profile and tool configs from public repositories.
 - Guides for WSL2, dual booting next to Windows, Linux on a Mac and choosing between them.
 - Offline tests and a CI job that resolves every package on every supported release and architecture.
+
+### Changed
+
+- Node.js 26 through nvm, the release that becomes the long-term support line in October 2026.
+- On a desktop the `configs` extra links the High Contrast palette from terminal-config for Ptyxis, the terminal in Ubuntu 25.10 and later.
