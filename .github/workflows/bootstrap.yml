@@ -1,0 +1,75 @@
+name: Bootstrap
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  merge_group:
+
+permissions:
+  contents: read
+
+jobs:
+  # offline tests: apt and sudo are stubs, platforms come from fixture files
+  tests:
+    name: Tests (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Check Bash syntax
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          for file in bootstrap/bootstrap.sh bootstrap/lib/*.sh bootstrap/stages/*.sh tests/*.sh; do
+            bash -n "$file"
+          done
+
+      - name: Run ShellCheck
+        shell: bash
+        run: shellcheck -x bootstrap/bootstrap.sh bootstrap/lib/*.sh bootstrap/stages/*.sh tests/*.sh
+
+      - name: Run bootstrap tests
+        shell: bash
+        run: ./tests/bootstrap-test.sh
+
+  # resolves every package, vendor repositories and optional extras included, in a clean container
+  # for each supported release on each architecture. A package that disappears or is renamed on any
+  # of them fails here instead of on a real machine
+  packages:
+    name: Packages (Ubuntu ${{ matrix.release }}, ${{ matrix.runner == 'ubuntu-24.04-arm' && 'arm64' || 'amd64' }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        release:
+          - "24.04"
+          - "26.04"
+        runner:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Resolve every package
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          extras="$(./bootstrap/bootstrap.sh --list | awk 'NR > 2 && NF { print $1 }' | paste -sd, -)"
+          docker run --rm \
+            --volume "$PWD:/repo" \
+            --workdir /repo \
+            --env LINUX_BOOTSTRAP_SIMULATE=1 \
+            "ubuntu:${{ matrix.release }}" \
+            ./bootstrap/bootstrap.sh --with "$extras"
