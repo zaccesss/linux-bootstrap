@@ -15,6 +15,7 @@ jobs:
   tests:
     name: Tests (${{ matrix.runner }})
     runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
@@ -48,6 +49,9 @@ jobs:
   packages:
     name: Packages (Ubuntu ${{ matrix.release }}, ${{ matrix.runner == 'ubuntu-24.04-arm' && 'arm64' || 'amd64' }})
     runs-on: ${{ matrix.runner }}
+    # an unreachable Ubuntu mirror once stretched this job past 15 minutes, one slow refresh at a
+    # time; the cap stops a stall from running for hours
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -72,4 +76,4 @@ jobs:
             --workdir /repo \
             --env LINUX_BOOTSTRAP_SIMULATE=1 \
             "ubuntu:${{ matrix.release }}" \
-            ./bootstrap/bootstrap.sh --with "$extras"
+            bash -c 'printf "Acquire::http::Timeout \"15\";\nAcquire::https::Timeout \"15\";\n" > /etc/apt/apt.conf.d/99ci-timeout && ./bootstrap/bootstrap.sh --with "$1"' _ "$extras"
