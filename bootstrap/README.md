@@ -21,7 +21,7 @@ an existing copy first.
 | Order | Stage | What it does |
 | --- | --- | --- |
 | 00 | Base | Build tools, Python with venv and pipx, Git, archive tools, gpg and the headers that pip, gem and cargo builds commonly need |
-| 10 | Language toolchains | Ubuntu packages for C, C++, the JVM languages, .NET, Go, Haskell, Elixir, Ruby, PHP and Lua. Node.js through nvm, Rust through rustup, Swift through swiftly and Zig from ziglang.org on 24.04 |
+| 10 | Language toolchains | Ubuntu packages for C, C++, the JVM languages, .NET, Go, Haskell, Elixir, Ruby, PHP and Lua. Node.js through nvm, Rust through rustup, Swift through swiftly (after the system packages it checks for) and Zig from ziglang.org on 24.04 |
 | 20 | Embedded tooling | ARM Cortex-M and AVR toolchains, OpenOCD, HDL tools and serial consoles. PlatformIO and Arduino CLI in the user's home. Adds the user to `dialout` for serial ports |
 | 30 | Cloud and DevOps | Docker and Compose, Ansible, Terraform and kubectl from their vendors' repositories and AWS CLI v2. Adds the user to `docker` |
 | 40 | CLI productivity | zsh with zsh-syntax-highlighting, Neovim, tmux, the modern replacements for ls, cat, find and grep, git helpers, speedtest-cli and media converters |
