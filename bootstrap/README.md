@@ -24,7 +24,7 @@ an existing copy first.
 | 10 | Language toolchains | Ubuntu packages for C, C++, the JVM languages, .NET, Go, Haskell, Elixir, Ruby, PHP and Lua. Node.js through nvm, Rust through rustup, Swift through swiftly and Zig from ziglang.org on 24.04 |
 | 20 | Embedded tooling | ARM Cortex-M and AVR toolchains, OpenOCD, HDL tools and serial consoles. PlatformIO and Arduino CLI in the user's home. Adds the user to `dialout` for serial ports |
 | 30 | Cloud and DevOps | Docker and Compose, Ansible, Terraform and kubectl from their vendors' repositories and AWS CLI v2. Adds the user to `docker` |
-| 40 | CLI productivity | zsh, Neovim, tmux, the modern replacements for ls, cat, find and grep, git helpers and media converters |
+| 40 | CLI productivity | zsh with zsh-syntax-highlighting, Neovim, tmux, the modern replacements for ls, cat, find and grep, git helpers, speedtest-cli and media converters |
 | 45 | Developer tools | PDF and image utilities, psql, starship, uv and ruff, typst, lychee and trivy |
 | 50 | Git integration | GitHub CLI from GitHub's repository, safe Git defaults and `~/.ssh` with 700 permissions |
 | 60 | Environment | WSL systemd and browser support. Guest integration for QEMU desktop VMs |
@@ -37,7 +37,8 @@ After the stages, any extras named with `--with` are installed. See
 - It never creates SSH keys, signs in to GitHub or sets the Git identity. `gh auth login` and the
   dotfiles handle those.
 - It never edits shell profiles. Installers that offer to (nvm, uv, starship) are told not to, so
-  the dotfiles stay the single owner of `PATH` and aliases.
+  the dotfiles stay the single owner of `PATH` and aliases. Only the opt-in `configs` extra writes
+  the profile loaders and changes the login shell to zsh.
 - It never removes packages.
 
 ## Run modes

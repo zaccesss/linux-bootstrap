@@ -5,8 +5,10 @@
 # batcat and fd is fdfind); the dotfiles alias them back.
 
 readonly CLI_PACKAGES=(
-    # shells, editors and multiplexers
+    # shells, editors and multiplexers. zsh-syntax-highlighting colours commands as they are typed;
+    # the dotfiles' zsh profile loads it from /usr/share and skips it when absent
     zsh
+    zsh-syntax-highlighting
     neovim
     vim
     tmux
@@ -24,6 +26,9 @@ readonly CLI_PACKAGES=(
     # system monitors
     btop
     htop
+
+    # network speed test, which the dotfiles' speedtest command runs
+    speedtest-cli
 
     # git helpers (git-delta provides the delta pager)
     git-delta
@@ -88,6 +93,7 @@ readonly CLI_COMMANDS=(
     zoxide
     btop
     htop
+    speedtest-cli
     delta
     lazygit
     identify

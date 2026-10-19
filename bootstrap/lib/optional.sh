@@ -345,25 +345,56 @@ copy_config_templates() {
     chmod 700 "${HOME}/.ssh" 2>/dev/null || true
 }
 
-# the dotfiles' bashrc finds its topic files through DOTFILES, so ~/.bashrc is a small loader that
-# sets it to wherever the repository was cloned, then hands over
-write_bashrc_loader() {
+# the dotfiles' profiles find their topic files through DOTFILES, so ~/.zshrc and ~/.bashrc are
+# small loaders that set it to wherever the repository was cloned, then hand over. zsh is the
+# default; the bash profile stays as the fallback for a shell started as bash
+write_shell_loader() {
+    local rc_name="$1"
+    local profile="$2"
+    local rc_file="${HOME}/${rc_name}"
     local dotfiles
     local loader
     dotfiles="$(get_config_repo dotfiles)"
     loader="export DOTFILES=\"${dotfiles}\"
-source \"\${DOTFILES}/linux/bashrc\""
+source \"\${DOTFILES}/linux/${profile}\""
 
-    if [[ -f "${HOME}/.bashrc" ]] && [[ "$(cat "${HOME}/.bashrc")" == "$loader" ]]; then
+    if [[ -f "$rc_file" ]] && [[ "$(cat "$rc_file")" == "$loader" ]]; then
         return 0
     fi
-    if [[ -e "${HOME}/.bashrc" ]]; then
+    if [[ -e "$rc_file" ]]; then
         mkdir -p "$CONFIG_BACKUP_DIR"
-        mv "${HOME}/.bashrc" "${CONFIG_BACKUP_DIR}/.bashrc-$(date +%Y%m%d-%H%M%S)"
-        log_warn "Moved the existing ~/.bashrc into ${CONFIG_BACKUP_DIR}"
+        mv "$rc_file" "${CONFIG_BACKUP_DIR}/${rc_name}-$(date +%Y%m%d-%H%M%S)"
+        log_warn "Moved the existing ~/${rc_name} into ${CONFIG_BACKUP_DIR}"
     fi
-    printf '%s\n' "$loader" > "${HOME}/.bashrc"
-    log_success "Wrote ~/.bashrc to load the dotfiles from ${dotfiles}"
+    printf '%s\n' "$loader" > "$rc_file"
+    log_success "Wrote ~/${rc_name} to load the dotfiles from ${dotfiles}"
+}
+
+# zsh is the default shell for the dotfiles, so once its profile is in place the login shell moves
+# to zsh. chsh runs through as_root with the user named, because a plain chsh asks for the account
+# password and a run must never stop at a prompt partway through
+set_login_shell_zsh() {
+    local user
+    local zsh_path
+    local current
+
+    zsh_path="$(command -v zsh || true)"
+    if [[ -z "$zsh_path" ]]; then
+        log_warn "zsh is not installed, so the login shell stays as it is"
+        return 0
+    fi
+
+    user="$(id -un)"
+    current="$(getent passwd "$user" | cut -d: -f7 || true)"
+    # /bin/zsh and /usr/bin/zsh are the same file on a merged /usr, so only the name is compared
+    if [[ "$(basename "${current:-}")" == "zsh" ]]; then
+        log_info "zsh is already the login shell for ${user}"
+        return 0
+    fi
+
+    log_info "Changing the login shell for ${user} from ${current:-an unknown shell} to ${zsh_path}"
+    as_root chsh -s "$zsh_path" "$user"
+    log_success "zsh is the login shell from the next login"
 }
 
 optional_configs() {
@@ -373,15 +404,18 @@ optional_configs() {
     fi
 
     # the Git hooks hand off to Git LFS, so it must exist before they are linked or every clone and
-    # checkout afterwards fails. The default stages install it, but this extra can run on its own
-    apt_install git-lfs
+    # checkout afterwards fails. zsh and its highlighting plugin back the default shell profile. The
+    # default stages install all three, but this extra can run on its own
+    apt_install git-lfs zsh zsh-syntax-highlighting
 
-    write_bashrc_loader
+    write_shell_loader .zshrc zshrc
+    write_shell_loader .bashrc bashrc
     link_config_set "${CONFIG_LINKS[@]}"
     copy_config_templates
     if desktop_steps_enabled; then
         link_config_set "${DESKTOP_CONFIG_LINKS[@]}"
     fi
+    set_login_shell_zsh
 
     # tmux's plugins come from its own plugin manager, which the config expects in this folder
     # the plugin installer drives tmux itself, so it runs only once tmux is installed
