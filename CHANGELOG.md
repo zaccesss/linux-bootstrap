@@ -20,3 +20,7 @@ All notable changes to this project are documented here.
 - On a desktop the `configs` extra links the High Contrast palette from terminal-config for Ptyxis, the terminal in Ubuntu 25.10 and later.
 - zsh is the default shell: the CLI stage installs `zsh-syntax-highlighting` beside zsh, the `configs` extra writes a `~/.zshrc` loader for the dotfiles' `linux/zshrc` alongside the `~/.bashrc` one and changes the login shell to zsh when it is not already, logging the change. The extra also installs zsh and the plugin itself, so it works when run on its own.
 - `speedtest-cli` in the CLI stage, for the dotfiles' `speedtest` command.
+
+### Fixed
+
+- The Swift step no longer stops a fresh Ubuntu 26.04 run. swiftly installed the toolchain, then exited over the missing `binutils-gold` package, so the language toolchain stage now installs every package swiftly checks for first, with the gold linker on 26.04 only. If swiftly still stops, the error says to install the packages it lists and run the bootstrap again.

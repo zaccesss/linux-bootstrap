@@ -22,9 +22,17 @@ readonly LANGUAGE_PACKAGES=(
     clojure
     leiningen
 
-    # libraries swiftly checks for before it will use a Swift toolchain
+    # packages swiftly checks for before it will use a Swift toolchain. It stops with an error
+    # when one is missing, so they are installed here first. The rest of its list (binutils,
+    # libc6-dev, git, the curl, XML and zlib headers, pkg-config, unzip and zip) comes from the
+    # base stage, as does libpython3-dev through python3-dev. libgcc-N-dev and libstdc++-N-dev
+    # arrive with build-essential's g++, which tracks the GCC version swiftly asks for
     gnupg2
+    libedit2
+    libncurses-dev
+    libsqlite3-0
     libz3-dev
+    tzdata
 
     # everything else
     cabal-install
@@ -40,9 +48,14 @@ readonly LANGUAGE_PACKAGES=(
     rustup
 )
 
-# packaged only from Ubuntu 26.04; 24.04 gets the official release instead (see install_zig)
+# added on Ubuntu 26.04 only
 readonly LANGUAGE_PACKAGES_26_04=(
+    # packaged only from 26.04; 24.04 gets the official release instead (see install_zig)
     zig
+
+    # binutils 2.44 split the gold linker into its own package and swiftly asks for it on 26.04.
+    # On 24.04 it is only a virtual name for binutils and swiftly does not ask for it
+    binutils-gold
 )
 
 # prefixed with BOOTSTRAP_ because nvm.sh uses NVM_VERSION internally: a readonly variable of that
@@ -146,7 +159,13 @@ install_swift_toolchain() {
     export PATH="$SWIFTLY_BIN_DIR:$PATH"
     # run from the home folder: swiftly records the selected version in a .swift-version file in
     # the current directory, which would otherwise land in whatever folder the bootstrap ran from
-    (cd "$HOME" && "$SWIFTLY_BIN_DIR/swiftly" install --use --assume-yes "$SWIFT_VERSION")
+    # swiftly installs the toolchain first and only then exits non-zero over a missing system
+    # package, which it names but never installs, even with --assume-yes
+    if ! (cd "$HOME" && "$SWIFTLY_BIN_DIR/swiftly" install --use --assume-yes "$SWIFT_VERSION"); then
+        log_error "swiftly could not set up Swift ${SWIFT_VERSION}. If it listed missing packages above, install them with: sudo apt-get install -y <package names>"
+        log_error "Then run the bootstrap again"
+        return 1
+    fi
 }
 
 # Zig on 24.04: the newest stable release from ziglang.org, linked into ~/.local/bin

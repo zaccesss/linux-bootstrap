@@ -181,18 +181,24 @@ for package in build-essential python3-venv clang openjdk-25-jdk dotnet-sdk-10.0
     assert_contains " ${package}" "$apt_log" "24.04 apt log"
 done
 assert_not_contains " zig" "$apt_log" "24.04 apt log"
+assert_not_contains " binutils-gold" "$apt_log" "24.04 apt log"
 assert_not_contains " lazygit" "$apt_log" "24.04 apt log"
 assert_not_contains " starship" "$apt_log" "24.04 apt log"
 pass "24.04 x86_64 installs every default stage and leaves zig, lazygit and starship to their installers"
 
+for package in gnupg2 libedit2 libncurses-dev libsqlite3-0 libz3-dev tzdata; do
+    assert_contains " ${package}" "$apt_log" "24.04 apt log"
+done
+pass "24.04 installs the packages swiftly needs before the Swift toolchain"
+
 output="$(run_bootstrap "$WORK_DIR/resolute" arm64 server)"
 apt_log="$(cat "$APT_LOG")"
 assert_contains "Platform detected: Ubuntu 26.04 (resolute) arm64, server" "$output"
-for package in zig lazygit; do
+for package in zig lazygit binutils-gold libncurses-dev; do
     assert_contains " ${package}" "$apt_log" "26.04 apt log"
 done
 assert_not_contains " starship" "$apt_log" "26.04 apt log"
-pass "26.04 ARM64 installs zig and lazygit from Ubuntu's archive and leaves starship to its installer"
+pass "26.04 ARM64 installs zig, lazygit and the gold linker swiftly needs from Ubuntu's archive and leaves starship to its installer"
 
 output="$(run_bootstrap "$WORK_DIR/resolute" arm64 server)"
 assert_contains "Linux Bootstrap foundation completed" "$output"
