@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## 2026-10-19
+
 ### Added
 
 - First public release: one command that sets up Ubuntu 24.04 or 26.04 on ARM64 and x86_64 (desktops, WSL2, servers and VMs) with language toolchains, embedded and electronics tools, cloud and DevOps tools, CLI tools, developer tools and Git integration.
