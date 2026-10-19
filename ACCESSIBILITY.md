@@ -18,6 +18,12 @@ also bring a high-contrast terminal palette that follows light and dark mode.
 - Each stage checks what is already in place, so running it again changes nothing that is already
   right.
 
+## In the terminal
+
+- The `configs` extra makes zsh the login shell, so the dotfiles' typed-command colours apply:
+  commands green, unknown commands red, quoted strings yellow and options cyan. Colour is only a
+  second signal there, since an unknown command still fails to run.
+
 ## On a desktop
 
 - The `configs` extra applies GNOME settings from

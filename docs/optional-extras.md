@@ -26,13 +26,13 @@ Desktop-only extras are skipped with a warning on WSL, servers and containers.
 | `vercel` | The Vercel CLI through npm | Any |
 | `extra-languages` | Racket, SBCL (Common Lisp), R and Ada (GNAT with gprbuild) | Any |
 | `gamedev` | SDL2 and SFML development libraries | Any |
-| `configs` | A shell profile, prompt and tool configs (tmux, Neovim, Git hooks, lazygit, ripgrep, plus VS Code settings, GNOME settings and the High Contrast terminal palette on a desktop) from public repositories, linked into place. Starting `~/.gitconfig` and `~/.ssh/config` files are copied if missing | Any |
+| `configs` | A zsh profile (with a bash fallback) set as the login shell, a prompt and tool configs (tmux, Neovim, Git hooks, lazygit, ripgrep, plus VS Code settings, GNOME settings and the High Contrast terminal palette on a desktop) from public repositories, linked into place. Starting `~/.gitconfig` and `~/.ssh/config` files are copied if missing | Any |
 | `chinese-input` | Pinyin and Cangjie input methods for IBus | Desktop |
 | `mac-keys` | Natural scrolling and Toshy for Mac-style shortcuts in a VM on a Mac | Desktop |
 
 ## Notes on individual extras
 
-- **configs:** repositories clone into `~/.dotfiles` (`BOOTSTRAP_CONFIG_DIR` changes it) from the GitHub user in `BOOTSTRAP_GITHUB_USER`, so pointing it at your own account uses your forks. Each file is linked rather than copied. Anything already there that is not a link moves into `~/.local/state/linux-bootstrap/backups`.
+- **configs:** repositories clone into `~/.dotfiles` (`BOOTSTRAP_CONFIG_DIR` changes it) from the GitHub user in `BOOTSTRAP_GITHUB_USER`, so pointing it at your own account uses your forks. Each file is linked rather than copied. Anything already there that is not a link moves into `~/.local/state/linux-bootstrap/backups`. `~/.zshrc` and `~/.bashrc` are small loaders for the dotfiles' zsh and bash profiles. When zsh is not already the login shell, the extra changes it with `chsh` (through sudo, so the run does not stop for a password) and logs the change; a run where zsh is already the login shell leaves it alone. The new shell applies from the next login.
 - **ardupilot:** ArduPilot's installer checks the Ubuntu codename. On a release it does not know
   yet, the bootstrap patches a local copy to treat it like the newest one it lists. ArduPilot also
   builds natively on macOS and runs under WSL2, so a Linux machine is not required for it.

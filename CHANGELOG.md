@@ -18,3 +18,5 @@ All notable changes to this project are documented here.
 - CI caps each job (10 minutes for tests, 20 for packages) and gives apt a 15-second network timeout, so an unreachable Ubuntu mirror fails fast instead of stretching a run for hours.
 - Node.js 26 through nvm, the release that becomes the long-term support line in October 2026.
 - On a desktop the `configs` extra links the High Contrast palette from terminal-config for Ptyxis, the terminal in Ubuntu 25.10 and later.
+- zsh is the default shell: the CLI stage installs `zsh-syntax-highlighting` beside zsh, the `configs` extra writes a `~/.zshrc` loader for the dotfiles' `linux/zshrc` alongside the `~/.bashrc` one and changes the login shell to zsh when it is not already, logging the change. The extra also installs zsh and the plugin itself, so it works when run on its own.
+- `speedtest-cli` in the CLI stage, for the dotfiles' `speedtest` command.

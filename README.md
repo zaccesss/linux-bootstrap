@@ -53,7 +53,7 @@ installed through version managers. Progress is recorded under `~/.local/state/l
 | Language toolchains | C and C++ (gcc, clang, gdb, lldb, valgrind), Java 25, Kotlin, Scala, Go, Rust, .NET 10, Node.js, Swift, Zig, Haskell, Elixir, Ruby, PHP, Lua and Clojure |
 | Embedded tooling | ARM Cortex-M and AVR toolchains, OpenOCD, GHDL, GTKWave, Yosys, PlatformIO, Arduino CLI and serial consoles |
 | Cloud and DevOps | Docker with Compose, Terraform, kubectl, Ansible and AWS CLI v2 |
-| CLI productivity | zsh, Neovim, tmux, ripgrep, fd, fzf, bat, eza, zoxide, delta, lazygit and btop |
+| CLI productivity | zsh with zsh-syntax-highlighting, Neovim, tmux, ripgrep, fd, fzf, bat, eza, zoxide, delta, lazygit, btop and speedtest-cli |
 | Developer tools | starship, uv, ruff, typst, trivy, lychee, psql, git-filter-repo and PDF and image utilities |
 | Git integration | GitHub CLI, safe Git defaults and the `~/.ssh` folder, with no credentials created |
 | Environment | systemd and browser support on WSL. Guest integration on QEMU desktop VMs |
@@ -70,7 +70,7 @@ repositories, each written to be forked and adapted:
 
 | Repository | What it provides |
 | --- | --- |
-| [dotfiles](https://github.com/zaccesss/dotfiles) | bash profile with aliases and helpers, starship prompt |
+| [dotfiles](https://github.com/zaccesss/dotfiles) | zsh profile (with a bash fallback) with aliases, helpers and typed-command colours, starship prompt |
 | [tmux-config](https://github.com/zaccesss/tmux-config) | tmux with vi-style copy mode |
 | [neovim-config](https://github.com/zaccesss/neovim-config) | Neovim with LSP, treesitter and Telescope |
 | [git-config](https://github.com/zaccesss/git-config) | A starting `~/.gitconfig` with SSH commit signing |
@@ -87,8 +87,10 @@ BOOTSTRAP_GITHUB_USER=<your GitHub user> ./bootstrap/bootstrap.sh --extras-only 
 ```
 
 They are cloned into `~/.dotfiles` (change it with `BOOTSTRAP_CONFIG_DIR`) and linked into place,
-so editing a file in a repository applies straight away. `~/.gitconfig` and `~/.ssh/config` are
-copied once as a starting point instead, because they hold your own name, email, keys and hosts.
+so editing a file in a repository applies straight away. `~/.zshrc` and `~/.bashrc` become small
+loaders for the dotfiles' zsh and bash profiles. zsh becomes the login shell when it is not
+already. `~/.gitconfig` and `~/.ssh/config` are copied once as a starting point instead, because
+they hold your own name, email, keys and hosts.
 
 ## Setting up a machine
 
