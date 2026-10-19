@@ -24,3 +24,4 @@ All notable changes to this project are documented here.
 ### Fixed
 
 - The Swift step no longer stops a fresh Ubuntu 26.04 run. swiftly installed the toolchain, then exited over the missing `binutils-gold` package, so the language toolchain stage now installs every package swiftly checks for first, with the gold linker on 26.04 only. If swiftly still stops, the error says to install the packages it lists and run the bootstrap again.
+- Arduino CLI is pinned to release 1.5.1 and checked against the release's checksums file instead of running the install script from the master branch. The embedded stage then adds the Arduino AVR core, so AVR boards compile straight away.
