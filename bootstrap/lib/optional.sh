@@ -274,11 +274,19 @@ readonly CONFIG_LINKS=(
 )
 
 # desktop only: VS Code and the terminal run on the host for WSL and container-style machines. The
-# Ptyxis palette is Ubuntu 25.10 and later's terminal; pick High Contrast in its preferences
+# Ptyxis palettes are for Ubuntu 25.10 and later's terminal; pick Zacess Deep Contrast Dark in
+# its preferences
 readonly DESKTOP_CONFIG_LINKS=(
     "vscode-config|settings.json|${HOME}/.config/Code/User/settings.json"
     "vscode-config|keybindings/windows-linux.json|${HOME}/.config/Code/User/keybindings.json"
-    "terminal-config|linux/ptyxis/high-contrast.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/high-contrast.palette"
+    "terminal-config|linux/ptyxis/zacess-deep-contrast-dark.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-deep-contrast-dark.palette"
+    "terminal-config|linux/ptyxis/zacess-deep-contrast-light.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-deep-contrast-light.palette"
+    "terminal-config|linux/ptyxis/zacess-high-contrast-dark.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-high-contrast-dark.palette"
+    "terminal-config|linux/ptyxis/zacess-high-contrast-light.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-high-contrast-light.palette"
+    "terminal-config|linux/ptyxis/zacess-dark.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-dark.palette"
+    "terminal-config|linux/ptyxis/zacess-light.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-light.palette"
+    "terminal-config|linux/ptyxis/zacess-cream.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-cream.palette"
+    "terminal-config|linux/ptyxis/zacess-yellow-on-black.palette|${HOME}/.local/share/org.gnome.Ptyxis/palettes/zacess-yellow-on-black.palette"
 )
 
 # these hold each person's own identity and hosts, so they are copied once as a starting point
