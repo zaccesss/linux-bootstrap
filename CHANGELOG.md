@@ -4,6 +4,10 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+### Changed
+
+- The `configs` extra links all eight Zacess palettes from terminal-config's `linux/ptyxis` (`zacess-<theme>.palette`) in place of the earlier `high-contrast.palette`, which terminal-config no longer has.
+
 ## 2026-10-19
 
 ### Added

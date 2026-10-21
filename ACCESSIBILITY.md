@@ -2,7 +2,7 @@
 
 This bootstrap sets up a whole Ubuntu machine, so it decides how much of the system a person has to
 find and fix by hand afterwards. It keeps runs predictable and readable. The `configs` extra can
-also bring a high-contrast terminal palette that follows light and dark mode.
+also bring the eight Zacess terminal palettes, with Zacess Deep Contrast Dark as the one to pick.
 
 > [!NOTE]
 > Some of these settings are preferences rather than requirements. Change them freely in your own
@@ -27,10 +27,10 @@ also bring a high-contrast terminal palette that follows light and dark mode.
 ## On a desktop
 
 - The `configs` extra applies GNOME settings from
-  [system-defaults](https://github.com/zaccesss/system-defaults) and links the High Contrast palette
+  [system-defaults](https://github.com/zaccesss/system-defaults) and links the eight Zacess palettes
   from [terminal-config](https://github.com/zaccesss/terminal-config) for Ptyxis, the terminal in
-  Ubuntu 25.10 and later: vivid colours on black in dark mode, every colour at 7:1 or more on white
-  in light mode.
+  Ubuntu 25.10 and later. Pick Zacess Deep Contrast Dark once under Preferences > Profile > Palette:
+  white on pure black with deep, fully saturated colours at 7:1 or more.
 - The `mac-keys` extra gives a VM on a Mac the same shortcuts as macOS (`Cmd+C`, `Cmd+V` and so on)
   and natural scrolling, so one set of muscle memory covers both.
 
