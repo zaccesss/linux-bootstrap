@@ -66,7 +66,13 @@ install_uv_and_ruff() {
     fi
 
     export PATH="${HOME}/.local/bin:$PATH"
+    # an older uv lists only release candidates of a new Python, so it is brought up to date first
+    uv self update || log_info "uv self update skipped (uv not installed by its own installer)"
     uv tool install --upgrade ruff
+
+    # Python 3.15 becomes the user's python and python3 in ~/.local/bin, ahead of the system's own
+    # Python, which Ubuntu and Fedora tools depend on and which stays untouched
+    uv python install 3.15 --default --preview-features python-install-default
 }
 
 install_typst() {
