@@ -54,7 +54,7 @@ installed through version managers. Progress is recorded under `~/.local/state/l
 | Embedded tooling | ARM Cortex-M and AVR toolchains, OpenOCD, GHDL, GTKWave, Yosys, PlatformIO, Arduino CLI and serial consoles |
 | Cloud and DevOps | Docker with Compose, Terraform, kubectl, Ansible and AWS CLI v2 |
 | CLI productivity | zsh with zsh-syntax-highlighting, Neovim, tmux, ripgrep, fd, fzf, bat, eza, zoxide, delta, lazygit, btop and speedtest-cli |
-| Developer tools | starship, uv, ruff, typst, trivy, lychee, psql, git-filter-repo and PDF and image utilities |
+| Developer tools | starship, uv with Python 3.15 as the user's default `python` and `python3` (the system Python stays as it is), ruff, typst, trivy, lychee, psql, git-filter-repo and PDF and image utilities |
 | Git integration | GitHub CLI, safe Git defaults and the `~/.ssh` folder, with no credentials created |
 | Environment | systemd and browser support on WSL. Guest integration on QEMU desktop VMs |
 
