@@ -4,9 +4,15 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## 0.1.0 - 2026-11-03
+
 ### Added
 
 - Python 3.15 is installed through uv as the user's default `python` and `python3`, ahead of the system Python, which Ubuntu and Fedora tools need and which is left alone. uv updates itself first, because an older uv only offers 3.15 release candidates.
+
+### Changed
+
+- Routine tidy-up
 
 ## 0.0.1 - 2026-10-22
 
